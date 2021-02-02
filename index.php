@@ -105,10 +105,7 @@ SQL
         case "delete":
             if (isset($_GET["id"])) {
                 $id = $_GET["id"];
-                $database->exec(<<<SQL
-DELETE FROM $table WHERE id=$id;
-SQL
-                );
+                $taskRepository->delete($id);
             }
             header("Location: /");
             break;

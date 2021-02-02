@@ -29,7 +29,8 @@ class TaskRepository
 
     public function delete($id)
     {
-
+        $reqDelete = Database::getInstance()->query("DELETE FROM ".TaskRepository::TABLE." WHERE id=".$id);
+        return $reqDelete;
 
     }
 }
