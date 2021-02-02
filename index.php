@@ -116,10 +116,7 @@ SQL
             if (isset($_GET["name"])) {
                 $name = $_GET["name"];
                 $name = addslashes($name);
-                $database->exec(<<<SQL
-                INSERT INTO $table (name) values('$name')
-SQL
-                );
+                $taskRepository->add($name);
             }
             header("Location: /");
             break;

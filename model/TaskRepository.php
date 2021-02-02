@@ -9,20 +9,27 @@ class TaskRepository
 
     public function getAll()
     {
-        $test = Database::getInstance()->query('SELECT * FROM ' . TaskRepository::TABLE . ' ORDER BY checked DESC');
+        $reqGetAll = Database::getInstance()->query('SELECT * FROM ' . TaskRepository::TABLE . ' ORDER BY checked DESC');
 
-        return $test;
+        return $reqGetAll;
     }
 
     public function update($id, $checked = false)
     {
+
+
     }
 
     public function add($description)
     {
+        $reqInsert = Database::getInstance()->query("INSERT INTO ".TaskRepository::TABLE." (name) VALUES('".$description."')");
+        return $reqInsert;
+
     }
 
     public function delete($id)
     {
+
+
     }
 }
