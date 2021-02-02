@@ -85,20 +85,14 @@ if (isset($_GET["action"])) {
         case "uncheck":
             if (isset($_GET["id"])) {
                 $id = $_GET["id"];
-                $database->exec(<<<SQL
-UPDATE $table set checked=0 WHERE id=$id;
-SQL
-                );
+                $taskRepository->update($id);
             }
             header("Location: /");
             break;
         case "check":
             if (isset($_GET["id"])) {
                 $id = $_GET["id"];
-                $database->exec(<<<SQL
-UPDATE $table set checked=1 WHERE id=$id;
-SQL
-                );
+                $taskRepository->update($id,true);
             }
             header("Location: /");
             break;
