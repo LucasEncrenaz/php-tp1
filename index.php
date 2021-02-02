@@ -1,26 +1,13 @@
 <?php
+require 'model/TaskRepository.php';
+require 'model/Database.php';
 define("DATABASE_FILE", "./data.db");
 $table = "tasks";
 $tasks = [];
-if (!file_exists(DATABASE_FILE)) {
-    $database = new SQLite3(DATABASE_FILE);
-    $database->exec(<<<SQL
-        create table $table 
-        (
-            id INTEGER
-                constraint tasks_pk
-                    primary key autoincrement,
-            name TEXT,
-            checked INTEGER default 0
-        );
-        INSERT INTO $table (id, name, checked) VALUES (1, 'Task to be done', 0);
-        INSERT INTO $table (id, name, checked) VALUES (2, 'Task done', 1);
-        
-SQL
-    );
-    header("Location: /");
-}
-$database = new SQLite3(DATABASE_FILE);
+
+Database::initialize(DATABASE_FILE);
+$taskRepository = new TaskRepository();
+$taskRepository->initialize();
 ?>
 <html>
 <head>
@@ -142,17 +129,13 @@ SQL
     }
 }
 
+$getAll = $taskRepository->getAll();
 
-$query = $database->query(<<<SQL
-    SELECT * FROM $table ORDER BY checked DESC;
-SQL
-);
-if (!$query)
-    die("Impossible to execute query.");
-
-while ($row = $query->fetchArray(SQLITE3_ASSOC)) {
-    $tasks[] = $row;
+foreach ($getAll as $value) {
+    $tasks[] = $value;
 }
+
+
 ?>
 <table>
     <tr>

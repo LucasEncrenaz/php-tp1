@@ -7,7 +7,7 @@ final class Database
 
     private function __construct($path)
     {
-        $this->pdo = new PDO("sqlite:/$path");
+        $this->pdo = new PDO("sqlite:$path");
     }
 
     public static function initialize($path)
